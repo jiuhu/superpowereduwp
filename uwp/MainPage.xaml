@@ -1,0 +1,176 @@
+﻿<Page
+    x:Class="uwp.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:uwp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Margin="0,32,0,0">
+        <ListView HorizontalAlignment="Left" VerticalAlignment="Top">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsStackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <Button x:Name="btnOpen" Content="Open" HorizontalAlignment="Left" VerticalAlignment="Top" Click="btnOpen_Click"/>
+            <TextBox x:Name="txtOpenFile" Text="" FontSize="14" Width="512" IsReadOnly="True"/>
+            <TextBlock x:Name="txtLoadStatus" FontSize="14"/>
+        </ListView>
+        <ListView HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,48,0,0">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsStackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <TextBlock FontSize="14" Text="Step"/>
+            <Slider x:Name="sldSeek" Minimum="0" Maximum="1" StepFrequency="1" ValueChanged="sldSeek_ValueChanged" Width="512"/>
+            <TextBlock x:Name="txtTrackProgress" FontSize="14"/>
+            <!--<Button x:Name="btnSave" Content="Save to" HorizontalAlignment="Left" VerticalAlignment="Top" Click="btnSave_Click"/>
+            <TextBox x:Name="txtSaveFile" Text="" FontSize="14" Width="512" IsReadOnly="True"/>-->
+        </ListView>
+        <ListView HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,96,0,0">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsStackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <TextBlock FontSize="14" Text="Volume"/>
+            <Slider x:Name="sldVolume" Minimum="0" Maximum="1" StepFrequency="0.1" ValueChanged="sldVolume_ValueChanged" Width="64" Value="1"/>
+            <Button x:Name="btnAction" Content="Play and Record" HorizontalAlignment="Left" VerticalAlignment="Top" Click="btnAction_Click" IsEnabled="False"/>
+        </ListView>
+
+        <Pivot x:Name="rootPivot" Title="SuperpoweredFX" Margin="0,128,0,0">
+            <PivotItem Header="Reverb">
+                <ListView x:Name="lstReverb" HorizontalAlignment="Left" VerticalAlignment="Top" Width="300" Visibility="Visible">
+                    <CheckBox x:Name="chkReverb" Content="Reverb" HorizontalAlignment="Left" Click="chkReverb_Click"/>
+                    <ListView>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <ItemsStackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <TextBlock FontSize="14" Text="dry"/>
+                        <Slider x:Name="sldReverbDry" Minimum="0" Maximum="1" StepFrequency="0.1" ValueChanged="sldReverbDry_ValueChanged" Width="64" />
+                        <TextBox x:Name="txtReverbDry" Text="{Binding Value, ElementName=sldReverbDry}" FontSize="14" IsReadOnly="True"/>
+                    </ListView>
+                    <ListView>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <ItemsStackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <TextBlock FontSize="14" Text="wet"/>
+                        <Slider x:Name="sldReverbWet" Minimum="0" Maximum="1" StepFrequency="0.1" ValueChanged="sldReverbWet_ValueChanged" Width="64" />
+                        <TextBox x:Name="txtReverbWet" Text="{Binding Value, ElementName=sldReverbWet}" FontSize="14" IsReadOnly="True"/>
+                    </ListView>
+                    <ListView>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <ItemsStackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <TextBlock FontSize="14" Text="width"/>
+                        <Slider x:Name="sldReverbWidth" Minimum="0" Maximum="1" StepFrequency="0.1" ValueChanged="sldReverbWidth_ValueChanged" Width="64" />
+                        <TextBox x:Name="txtReverbWidth" Text="{Binding Value, ElementName=sldReverbWidth}" FontSize="14" IsReadOnly="True"/>
+                    </ListView>
+                    <ListView>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <ItemsStackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <TextBlock FontSize="14" Text="damp"/>
+                        <Slider x:Name="sldReverbDamp" Minimum="0" Maximum="1" StepFrequency="0.1" ValueChanged="sldReverbDamp_ValueChanged" Width="64" />
+                        <TextBox x:Name="txtReverbDamp" Text="{Binding Value, ElementName=sldReverbDamp}" FontSize="14" IsReadOnly="True"/>
+                    </ListView>
+                    <ListView>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <ItemsStackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <TextBlock FontSize="14" Text="room"/>
+                        <Slider x:Name="sldReverbRoom" Minimum="0" Maximum="1" StepFrequency="0.1" ValueChanged="sldReverbRoom_ValueChanged" Width="64" />
+                        <TextBox x:Name="txtReverbRoom" Text="{Binding Value, ElementName=sldReverbRoom}" FontSize="14" IsReadOnly="True"/>
+                    </ListView>
+                    <ListView>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <ItemsStackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <TextBlock FontSize="14" Text="predelay"/>
+                        <Slider x:Name="sldReverbPredelay" Minimum="0" Maximum="500" StepFrequency="1" ValueChanged="sldReverbPredelay_ValueChanged" Width="64" />
+                        <TextBox x:Name="txtReverbPredelay" Text="{Binding Value, ElementName=sldReverbPredelay}" FontSize="14" IsReadOnly="True"/>
+                    </ListView>
+                </ListView>
+            </PivotItem>
+
+            <PivotItem Header="Echo">
+                <ListView x:Name="lstEcho" HorizontalAlignment="Left" VerticalAlignment="Top" Width="300" Visibility="Visible">
+                    <CheckBox x:Name="chkEcho" Content="Echo" HorizontalAlignment="Left" Click="chkEcho_Click"/>
+                    <ListView>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <ItemsStackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <TextBlock FontSize="14" Text="mix"/>
+                        <Slider x:Name="sldEchoMix" Minimum="0" Maximum="1" StepFrequency="0.1" ValueChanged="sldEchoMix_ValueChanged" Width="64" />
+                        <TextBox x:Name="txtEchoMix" Text="{Binding Value, ElementName=sldEchoMix}" FontSize="14" IsReadOnly="True"/>
+                    </ListView>
+                    <ListView>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <ItemsStackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <TextBlock FontSize="14" Text="bpm"/>
+                        <Slider x:Name="sldEchoBpm" Minimum="40" Maximum="250" StepFrequency="1" ValueChanged="sldEchoBpm_ValueChanged" Width="64" Value="40"/>
+                        <TextBox x:Name="txtEchoBpm" Text="{Binding Value, ElementName=sldEchoBpm}" FontSize="14" IsReadOnly="True"/>
+                    </ListView>
+                    <ListView>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <ItemsStackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <TextBlock FontSize="14" Text="beats"/>
+                        <Slider x:Name="sldEchoBeats" Minimum="0.03125" Maximum="2" StepFrequency="0.01" ValueChanged="sldEchoBeats_ValueChanged" Width="64"  Value="1"/>
+                        <TextBox x:Name="txtEchoBeats" Text="{Binding Value, ElementName=sldEchoBeats}" FontSize="14" IsReadOnly="True"/>
+                    </ListView>
+                    <ListView>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <ItemsStackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <TextBlock FontSize="14" Text="decay"/>
+                        <Slider x:Name="sldEchoDecay" Minimum="0" Maximum="0.99" StepFrequency="0.01" ValueChanged="sldEchoDecay_ValueChanged" Width="64"  Value="0"/>
+                        <TextBox x:Name="txtEchoDecay" Text="{Binding Value, ElementName=sldEchoDecay}" FontSize="14" IsReadOnly="True"/>
+                    </ListView>
+                </ListView>
+            </PivotItem>
+            <!--<PivotItem Header="Pivot Item 3">
+                <ListView x:Name="lstEcho" HorizontalAlignment="Left" Height="256" VerticalAlignment="Top" Width="300" Visibility="Visible">
+                    <CheckBox Content="Echo" HorizontalAlignment="Left" Click="echoCheckbox_Click"/>
+                    <ListView>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <ItemsStackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <TextBlock FontSize="14" Text="mix"/>
+                        <Slider x:Name="sldEchoMix" Minimum="0" Maximum="1" StepFrequency="0.1" ValueChanged="sldEchoMix_ValueChanged" Width="64" />
+                        <TextBox x:Name="txtEchoMix" Text="{Binding Value, ElementName=sldEchoMix}" FontSize="14" IsReadOnly="True"/>
+                    </ListView>
+                </ListView>
+            </PivotItem>-->
+        </Pivot>
+
+
+    </Grid>
+</Page>
